@@ -1,0 +1,26 @@
+FROM jenkins/jenkins:lts
+
+# Distributed Builds plugins (1)
+RUN /usr/local/bin/install-plugins.sh ssh-slaves
+
+#Install GIT (2)
+RUN /usr/local/bin/install-plugins.sh git
+
+# install Notifications and Publishing plugins
+RUN /usr/local/bin/install-plugins.sh email-ext
+RUN /usr/local/bin/install-plugins.sh mailer
+RUN /usr/local/bin/install-plugins.sh slack
+
+# Artifacts
+RUN /usr/local/bin/install-plugins.sh htmlpublisher
+
+# UI (3)
+RUN /usr/local/bin/install-plugins.sh greenballs
+RUN /usr/local/bin/install-plugins.sh simple-theme-plugin
+
+# Scaling (4)
+RUN /usr/local/bin/install-plugins.sh kubernetes
+
+VOLUME /var/jenkins_home 
+# (5)
+USER jenkins
